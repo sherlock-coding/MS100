@@ -31,7 +31,7 @@ BSTreeNode * BSTreeCreate(int i)
 }
 
 
-
+/* 分别递归地对左右子树进行转换 */
 BSTreeNode * TransToList(BSTreeNode *p, bool isLeft)
 {
 	if(!p)
@@ -67,6 +67,23 @@ BSTreeNode * TransToList(BSTreeNode *p, bool isLeft)
 	return p;
 }
 
+/* 利用中序进行转换 */
+void MidTransToList(BSTreeNode *p, BSTreeNode * &last)
+{
+	if (!p)
+		return;
+	
+	MidTransToList(p->m_pLeft,last);
+	if (last){
+		last->m_pRight = p;
+		p->m_pLeft = last;
+	}
+
+	last = p;
+	MidTransToList(p->m_pRight,last);
+	
+}
+
 void MidPrint(BSTreeNode *root)
 {
 	if(!root)
@@ -96,7 +113,9 @@ int main()
 	MidPrint(root);
 	cout << endl;
 
-	BSTreeNode *head = TransToList(root, false);
-	PrintList(head);
+//	BSTreeNode *head = TransToList(root, false);
+	BSTreeNode *last = NULL;
+	MidTransToList(root,last);
+	PrintList(root);
 	return 0;
 }

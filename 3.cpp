@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+/*
 int GetMax(int *a, int n)
 {
 	int i;
@@ -37,7 +37,25 @@ int GetMax(int *a, int n)
 	}
 	
 	return maxSubSum;
+}*/
+
+int GetMax(int *a, int n)
+{
+	int i, temp = 0;;
+	int maxSubSum = (1<<31);
+	for (i = 0; i < n; i++) {
+		temp += a[i];
+
+		if (temp > maxSubSum)
+			maxSubSum = temp;
+
+		if (temp < 0) 
+			temp = 0;
+	}
+
+	return maxSubSum;
 }
+
 
 int main()
 {
@@ -46,8 +64,9 @@ int main()
 
 	int b[] = {-1,-6,-7,0};
 	int c[] = {-1,-6,-3};
+	int f[] = {-1,2};
 
 	cout << GetMax(b, 4) << " " << GetMax(c,3) << endl;
-
+	cout <<GetMax(f,2) << endl;
 	return 0;
 }
